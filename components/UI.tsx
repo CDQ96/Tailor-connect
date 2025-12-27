@@ -20,16 +20,23 @@ export const Button = ({ children, onClick, variant = 'primary', className = '',
   );
 };
 
-export const Input = ({ label, type = "text", value, onChange, placeholder, className = '' }: any) => (
+export const Input = ({ label, type = "text", value, onChange, placeholder, className = '', icon }: any) => (
   <div className={`flex flex-col gap-1.5 ${className}`}>
     {label && <label className="text-sm font-semibold text-gray-700">{label}</label>}
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className="px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all"
-    />
+    <div className="relative">
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full px-4 py-2.5 rounded-lg border border-gray-700 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+      />
+      {icon && (
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 cursor-pointer hover:text-gray-200">
+          {icon}
+        </div>
+      )}
+    </div>
   </div>
 );
 

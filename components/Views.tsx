@@ -42,14 +42,21 @@ export const LandingView = () => {
 
 // --- Auth View ---
 export const AuthView = () => {
-  const { login } = useApp();
+  const { login, addNotification } = useApp();
   const [isRegister, setIsRegister] = useState(false);
   const [role, setRole] = useState<UserRole>(UserRole.CUSTOMER);
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if(name) login(role, name);
+    if (isRegister && password !== confirmPassword) {
+        addNotification("Passwords do not match!");
+        return;
+    }
+    if (name && password) login(role, name);
   };
 
   return (
@@ -63,7 +70,27 @@ export const AuthView = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input label="Full Name" value={name} onChange={(e: any) => setName(e.target.value)} placeholder="John Doe" />
           <Input label="Email Address" type="email" placeholder="john@example.com" />
-          <Input label="Password" type="password" placeholder="••••••••" />
+          
+          <Input 
+            label="Password" 
+            type={showPassword ? "text" : "password"} 
+            value={password} 
+            onChange={(e: any) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            icon={
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} onClick={() => setShowPassword(!showPassword)}></i>
+            }
+          />
+
+          {isRegister && (
+             <Input 
+                label="Confirm Password" 
+                type={showPassword ? "text" : "password"} 
+                value={confirmPassword} 
+                onChange={(e: any) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+             />
+          )}
           
           <div className="flex gap-4 my-2">
             <label className={`flex-1 p-3 border rounded-lg cursor-pointer text-center transition-all ${role === UserRole.CUSTOMER ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-gray-200'}`}>
@@ -81,7 +108,7 @@ export const AuthView = () => {
         
         <div className="mt-6 text-center text-sm text-gray-500">
             {isRegister ? 'Already have an account? ' : "Don't have an account? "}
-            <button onClick={() => setIsRegister(!isRegister)} className="text-indigo-600 font-semibold hover:underline">
+            <button type="button" onClick={() => setIsRegister(!isRegister)} className="text-indigo-600 font-semibold hover:underline">
                 {isRegister ? 'Log In' : 'Sign Up'}
             </button>
         </div>
@@ -139,7 +166,7 @@ export const CustomerDashboard = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search for suits, dresses, alterations..." 
-                    className="flex-1 px-4 py-3 rounded-lg text-gray-900 outline-none"
+                    className="flex-1 px-4 py-3 rounded-lg text-gray-900 outline-none text-gray-800"
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 />
                 <Button onClick={handleSearch} variant="accent" className="px-8">
