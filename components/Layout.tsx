@@ -12,8 +12,8 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate(user ? AppView.CUSTOMER_DASHBOARD : AppView.LANDING)}>
-              <div className="bg-gray-900 text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold font-serif">S</div>
-              <span className="text-xl font-bold font-serif tracking-tight text-gray-900">StitchConnect</span>
+              <div className="bg-gray-900 text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold font-serif">T</div>
+              <span className="text-xl font-bold font-serif tracking-tight text-gray-900">TailorConnect</span>
             </div>
 
             <div className="flex items-center gap-6">
@@ -29,7 +29,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
               ) : (
                 <div className="flex gap-4">
                    <button onClick={() => navigate(AppView.AUTH)} className="text-gray-900 font-medium hover:text-gray-700">Log In</button>
-                   <button onClick={() => navigate(AppView.AUTH)} className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800">Get Started</button>
+                   <button onClick={() => navigate(AppView.AUTH)} className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">Sign Up</button>
                 </div>
               )}
             </div>
@@ -37,20 +37,28 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         </div>
       </nav>
 
+      {/* Notifications */}
+      <div className="fixed top-20 right-4 z-50 flex flex-col gap-2">
+        {notifications.map((msg, i) => (
+             <div key={i} className="bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl animate-fade-in-down flex items-center gap-3">
+                <i className="fas fa-bell text-yellow-400"></i>
+                {msg}
+            </div>
+        ))}
+      </div>
+
       {/* Main Content */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {children}
       </main>
-
-      {/* Notifications */}
-      {notifications.map((msg, idx) => (
-        <div key={idx} className="fixed bottom-4 right-4 z-50">
-             <div className="bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3">
-                 <i className="fas fa-info-circle"></i>
-                 {msg}
-             </div>
+      
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 py-12 mt-12">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-500">
+            <p className="font-serif text-lg text-gray-900 mb-2">TailorConnect</p>
+            <p>&copy; 2023 TailorConnect. All rights reserved.</p>
         </div>
-      ))}
+      </footer>
     </div>
   );
 };
