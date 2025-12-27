@@ -8,7 +8,15 @@ import {
   CustomerDashboard, 
   TailorDetails,
   MeasurementView,
-  TrackingView
+  TrackingView,
+  TailorDashboard,
+  ChatView,
+  PaymentView,
+  AppointmentView,
+  ProfileView,
+  LiveStylistView,
+  VirtualFittingView,
+  FabricScannerView
 } from './components/Views';
 
 const Main = () => {
@@ -29,7 +37,21 @@ const Main = () => {
       case AppView.TRACKING:
         return <TrackingView />;
       case AppView.TAILOR_DASHBOARD:
-        return <div className="text-center py-20 text-xl text-gray-500">Tailor Dashboard (Mock Implementation)</div>;
+        return <TailorDashboard />;
+      case AppView.CHAT:
+        return <ChatView />;
+      case AppView.PAYMENT:
+        return <PaymentView />;
+      case AppView.APPOINTMENTS:
+        return <AppointmentView />;
+      case AppView.PROFILE:
+        return <ProfileView />;
+      case AppView.LIVE_STYLIST:
+        return <LiveStylistView />;
+      case AppView.VIRTUAL_FITTING:
+        return <VirtualFittingView />;
+      case AppView.FABRIC_SCANNER:
+        return <FabricScannerView />;
       default:
         return <LandingView />;
     }

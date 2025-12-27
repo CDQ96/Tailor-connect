@@ -3,6 +3,7 @@
   "description": "A comprehensive platform connecting users with expert local tailors, featuring AI-powered sizing, material sourcing, and real-time delivery tracking.",
   "requestFramePermissions": [
     "camera",
-    "geolocation"
+    "geolocation",
+    "microphone"
   ]
 }

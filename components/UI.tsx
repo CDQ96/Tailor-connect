@@ -66,3 +66,17 @@ export const NotificationToast = ({ message }: { message: string }) => (
     {message}
   </div>
 );
+
+export const StarRating = ({ rating, setRating, readOnly = false }: { rating: number, setRating?: (r: number) => void, readOnly?: boolean }) => {
+    return (
+        <div className="flex gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+                <i 
+                    key={star}
+                    className={`fas fa-star text-lg ${star <= rating ? 'text-yellow-400' : 'text-gray-300'} ${!readOnly ? 'cursor-pointer hover:scale-110 transition-transform' : ''}`}
+                    onClick={() => !readOnly && setRating && setRating(star)}
+                ></i>
+            ))}
+        </div>
+    );
+};
